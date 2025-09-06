@@ -11,7 +11,7 @@ This project demonstrates the **Law of Large Numbers (LLN)** using a simple coin
 
 ## Key Features
 - Interactive runs: progress through $N = 10, 100, 1000, 10000$.  
-- LLN panel: running mean approaching 0.5.  
+- LLN panel: running mean approaching $0.5$.  
 - CLT panel: histogram with bold red Normal overlay.  
 - Heads/Tails counts displayed at each run.  
 
@@ -22,5 +22,20 @@ This project demonstrates the **Law of Large Numbers (LLN)** using a simple coin
 
 ---
 
-## Citation
-> Yılmaz, M. İ. (2025). *coin-flipping-exercise*. GitHub. https://github.com/mikbalyilmaz/coin-flipping-exercise
+## How to Cite  
+
+> Yılmaz, M. İ. (2025). *coin-flipping-exercise*. GitHub. https://github.com/mikbalyilmaz/coin-flipping-exercise  
+
+**APA citation:**  
+Yılmaz, M. İ. (2025). *coin-flipping-exercise*. GitHub. Retrieved September 6, 2025, from https://github.com/mikbalyilmaz/coin-flipping-exercise  
+
+**BibTeX:**  
+
+```bibtex
+@misc{coin_flipping_exercise_2025,
+  author       = {Muhammed İkbal Yılmaz},
+  title        = {coin-flipping-exercise},
+  year         = {2025},
+  howpublished = {\url{https://github.com/mikbalyilmaz/coin-flipping-exercise}},
+  note         = {Accessed: 2025-09-06}
+}
