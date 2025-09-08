@@ -7,23 +7,23 @@ A compact, reproducible simulation that demonstrates both the **Law of Large Num
 
 ## What it shows
 - **LLN (single path):** The running mean  
-  $$
+  \[
   \hat p_n=\frac{1}{n}\sum_{i=1}^n X_i
-  $$
+  \]
   stabilizes near \(p\) as \(n\) grows (for a fair coin \(p=0.5\)).
 - **CLT (many paths):** For fixed \(N\), the distribution of \(\hat p\) over repeated experiments is approximately Normal,
-  $$
+  \[
   \hat p \approx \mathcal{N}\!\big(p,\;p(1-p)/N\big),
-  $$
+  \]
   and tightens as \(N\) increases.
 
 ---
 
 ## Key Features
 - **Extended schedule:**  
-  $$
+  \[
   N \in \{5,\,30,\,100,\,300,\,800,\,1{,}000,\,2{,}500,\,4{,}000,\,10{,}000,\,50{,}000,\,100{,}000\}.
-  $$
+  \]
 - **Notebook-safe by default:** No blocking `input()`. Optional `--interactive` for terminal use.
 - **Adaptive repetitions (M):** More experiments for small/medium \(N\) → smoother, more Gaussian-looking histograms.
 - **Adaptive binning:** Freedman–Diaconis rule with safeguards to avoid spiky histograms.
@@ -86,7 +86,7 @@ Alternatively, import and call the driver:
 ---
 
 ## Methodological Notes
-- **Model.** $X_i \sim \mathrm{Bernoulli}(p)$, i.i.d.; heads $=1$, tails $=0$.
+- **Model.** \(X_i \sim \mathrm{Bernoulli}(p)\), i.i.d.; heads \(=1\), tails \(=0\).
 - **LLN panel (A).** Log-scale \(n\) axis highlights early fluctuations and long-run stabilization around \(p\).
 - **CLT panel (B).** Builds \(\{\hat p^{(j)}\}_{j=1}^M\) from \(M\) independent experiments of size \(N\); overlays \(\mathcal{N}(p,\,p(1-p)/N)\).
 - **Smoothing.** \(M\) and histogram bins are chosen adaptively (Freedman–Diaconis) to balance fidelity and runtime.
