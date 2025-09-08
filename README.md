@@ -7,9 +7,9 @@ A compact, reproducible simulation that demonstrates both the **Law of Large Num
 
 ## What it shows
 - **LLN (single path):** The running mean  
-  \[
+  $
   \hat p_n=\frac{1}{n}\sum_{i=1}^n X_i
-  \]
+  $
   stabilizes near \(p\) as \(n\) grows (for a fair coin \(p=0.5\)).
 - **CLT (many paths):** For fixed \(N\), the distribution of \(\hat p\) over repeated experiments is approximately Normal,
   \[
