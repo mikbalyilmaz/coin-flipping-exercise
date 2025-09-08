@@ -6,20 +6,18 @@ A compact, reproducible simulation that demonstrates both the **Law of Large Num
 ---
 
 ## What it shows
-- **LLN (single path):** The running mean $\hat{p}_n=\frac{1}{n}\sum_{i=1}^{n}X_i$ stabilizes near $p$ as $n$ grows (for a fair coin $p=0.5$).
+- **LLN (single path):** The running mean $\hat{p}_n=\tfrac{1}{n}\sum_{i=1}^{n}X_i$ stabilizes near $p$ as $n$ grows (for a fair coin $p=0.5$).
 - **CLT (many paths):** For fixed $N$, the distribution of $\hat{p}$ over repeated experiments is approximately Normal,
-$$
-\hat{p}\ \approx\ \mathcal{N}\!\big(p,\;p(1-p)/N\big),
-$$
+$$\hat{p}\ \approx\ \mathcal{N}\!\big(p,\;p(1-p)/N\big),$$
 and tightens as $N$ increases.
+
+> ⚠️ **GitHub math tip:** Put the opening and closing `$` or `$$` **on the same line** as the formula (no blank lines in between), and don’t wrap math inside code fences. Otherwise the raw `\frac`, `\hat`, `\sum` text will show instead of typeset math.
 
 ---
 
 ## Key Features
 - **Extended schedule:**  
-$$
-N \in \{5,\,30,\,100,\,300,\,800,\,1{,}000,\,2{,}500,\,4{,}000,\,10{,}000,\,50{,}000,\,100{,}000\}.
-$$
+$$N \in \{5,\,30,\,100,\,300,\,800,\,1{,}000,\,2{,}500,\,4{,}000,\,10{,}000,\,50{,}000,\,100{,}000\}.$$
 - **Notebook-safe by default:** No blocking `input()`. Optional `--interactive` for terminal use.
 - **Adaptive repetitions ($M$):** More experiments for small/medium $N$ → smoother, more Gaussian-looking histograms.
 - **Adaptive binning:** Freedman–Diaconis rule with safeguards to avoid spiky histograms.
@@ -120,12 +118,3 @@ Yılmaz, M. İ. (2025). *coin-flipping-exercise*. GitHub. Retrieved September 8,
   note         = {Accessed: 2025-09-08}
 }
 ```
-
----
-
-## Notes on math rendering on GitHub
-- GitHub Markdown supports LaTeX via KaTeX.  
-- Use `$...$` for inline math and `$$...$$` for display math (as above).  
-- **Do not** wrap math in backticks (inline `` `...` `` or fenced code blocks) — it will not render.  
-- Keep the opening and closing `$`/`$$` on the same paragraph lines (avoid stray line breaks right after `$$` or just before `$$`).  
-- Escape braces only when needed; typical expressions like $\hat{p}_n$ and $\mathcal{N}(p,\,p(1-p)/N)$ work as-is.
