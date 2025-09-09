@@ -11,7 +11,7 @@ A compact, reproducible simulation that demonstrates both the **Law of Large Num
 $$\hat{p}\ \approx\ \mathcal{N}\!\big(p,\;p(1-p)/N\big),$$
 and tightens as $N$ increases.
 
-> ⚠️ **GitHub math tip:** Put the opening and closing `$` or `$$` **on the same line** as the formula (no blank lines in between), and don’t wrap math inside code fences. Otherwise the raw `\frac`, `\hat`, `\sum` text will show instead of typeset math.
+ **GitHub math tip:** Put the opening and closing `$` or `$$` **on the same line** as the formula (no blank lines in between), and don’t wrap math inside code fences. Otherwise the raw `\frac`, `\hat`, `\sum` text will show instead of typeset math.
 
 ---
 
