@@ -40,7 +40,7 @@ pip install numpy matplotlib
 # pip install -r requirements.txt
 ```
 
-### Run from the command line (recommended)
+### Run from the command line
 Save the main script as `coin_experiment.py`, then:
 ```bash
 # Default schedule; deterministic output
