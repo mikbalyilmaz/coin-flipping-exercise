@@ -1,0 +1,2 @@
+paths,n_max,share_outside_at_n_mean_1e3_to_1e5,share_outside_by_1e3,share_outside_by_1e5,rms_slope_n_ge_1e3,rms_over_se_at_1e5,lil_wider_than_band_from_n
+2000,100000,0.0513362238765265,0.531,0.7435,-0.4956132966191541,1.008801605867081,922
