@@ -1,5 +1,7 @@
 # Coin Tosses: the Running Mean, the 95% Band and the Normal Approximation
 
+[![tests](https://github.com/mikbalyilmaz/coin-flipping-exercise/actions/workflows/tests.yml/badge.svg)](https://github.com/mikbalyilmaz/coin-flipping-exercise/actions/workflows/tests.yml)
+
 Version 2 of a small study of the proportion of heads in $n$ coin tosses,
 
 $$\hat p_n = \frac{1}{n}\sum_{i=1}^{n} X_i, \qquad X_i \sim \text{Bernoulli}(p) \text{ independent}.$$
