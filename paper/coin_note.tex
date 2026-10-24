@@ -1,58 +1,61 @@
-\documentclass[a4paper,10pt]{article}
+\documentclass[11pt,a4paper]{article}
 
-% Encoding and typeface: XeLaTeX with Latin Modern Roman (fontspec default), English via polyglossia
+% Typeface: XeLaTeX with Latin Modern Roman (fontspec default)
 \usepackage{fontspec}
 \usepackage{polyglossia}
 \setdefaultlanguage[variant=british]{english}
 
-% Layout (tight margins)
-\usepackage[a4paper,top=1.2cm,bottom=1.3cm,left=1.3cm,right=1.3cm]{geometry}
+% Page: the measures of the note template (A4, 11 pt, 4.5 cm side margins, header and page count)
+\usepackage[a4paper,left=4.5cm,right=4.5cm,top=4.5cm,bottom=4.1cm,headheight=14pt,headsep=0.55cm,
+  footskip=0.55cm]{geometry}
+\linespread{0.946}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textbf{PROJECT NOTE} $|$ Coin flipping}
+\fancyhead[R]{\small\textbf{Compiled on:} \notedate}
+\fancyfoot[C]{\small\thepage\,/\,\pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
 
-% Typography
 \usepackage{microtype}
-\usepackage{setspace}
-\setstretch{0.92}
-
-% Paragraph settings
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{3pt}
-
-% Section styling
-\usepackage{titlesec}
-\titleformat{\section}{\bfseries\normalsize}{\thesection.}{0.4em}{}
-\titlespacing*{\section}{0pt}{6pt}{3pt}
-
-% Better lists
-\usepackage{enumitem}
-\setlist{noitemsep, topsep=2pt}
-
-% Mathematics, tables, figures
-\usepackage{amsmath}
-\usepackage{booktabs}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,array,tabularx}
 \usepackage{graphicx}
-\usepackage[font=small,labelfont=bf,labelsep=period,skip=3pt]{caption}
-\setlength{\textfloatsep}{8pt}
-\setlength{\floatsep}{6pt}
+\usepackage{enumitem}
+\setlist{noitemsep, topsep=3pt, leftmargin=*}
+\usepackage{xcolor}
+\definecolor{secblue}{HTML}{1F3A5F}
+\definecolor{boxback}{HTML}{EEF2F6}
+\definecolor{mark}{HTML}{9B2226}
+\definecolor{hl}{HTML}{FFF36B}
+\usepackage{titlesec}
+\titleformat{\section}{\color{secblue}\bfseries\normalsize}{\thesection.}{0.4em}{}
+\titlespacing*{\section}{0pt}{10pt}{4pt}
+\usepackage[font=small,labelfont=bf,labelsep=period,skip=4pt]{caption}
+\usepackage[bottom]{footmisc}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\textfloatsep}{10pt}
+\emergencystretch=3em
+
+\newcommand{\notedate}{\number\day\space\ifcase\month\or January\or February\or March\or April\or May\or June\or
+  July\or August\or September\or October\or November\or December\fi\space\number\year}
 
 \input{numbers_en.tex}
 
 \begin{document}
 
-% Header (top-right)
-\begin{flushright}
-\small \textbf{Compiled on:} \today
-\end{flushright}
 
-\vspace{-6pt}
-\hrule
-\vspace{24pt}
+\vspace*{14pt}
+\begin{tabular}{@{}p{2.35cm}@{}p{\dimexpr\textwidth-2.35cm}@{}}
+\textbf{TITLE:} & \textbf{\large Coin tosses: what the running mean, the 95\% band and the normal approximation actually show}\\[3pt]
+\textbf{SUBJECT:} & Aim, method and results of the analyses in version 2 of the \texttt{coin-flipping-exercise} repository\\[3pt]
+\textbf{AUTHOR:} & Muhammed İkbal Yılmaz (myucanlar@gmail.com)
+\end{tabular}
 
-\textbf{TITLE:} Coin tosses: what the running mean, the 95\% band and the normal approximation actually show
-
-\textbf{SUBJECT:} Aim, method and results of the analyses in version 2 of the \texttt{coin-flipping-exercise} repository
-
-\textbf{PREPARED BY:} Muhammed İkbal Yılmaz (myucanlar@gmail.com)
-
+\vspace{8pt}
 \vspace{12pt}
 
 \section{Aim and scope}
@@ -100,12 +103,12 @@ statements, and this analysis measures both.
 \textbf{Method.} \Paths{} independent paths of $10^5$ fair-coin tosses. For each $n$: the share of paths outside the band at
 $n$; the share of paths that have been outside at least once up to $n$; and the root mean square (RMS) of $\hat p_n - p$.
 
-\textbf{How to read the figure.} Left: 20 of the paths with the band (orange) and the LIL envelope (grey, dashed). Right: the
-blue curve is the share outside at a given $n$, which should be near the dotted 5\% line if the band is correct; the orange
+\textbf{How to read the figure.} Left: 20 of the paths with the band (black) and the LIL envelope (grey, dashed). Right: the
+blue curve is the share outside at a given $n$, which should be near the red dotted 5\% line if the band is correct; the black
 curve is the share that has left the band at some point.
 
 \begin{figure}[h]
-\centering\includegraphics[width=0.9\linewidth]{../figures/fig1_lln.pdf}
+\centering\includegraphics[width=\textwidth]{../figures/fig1_lln.pdf}
 \caption{Left: running means of 20 fair-coin paths, the pointwise 95\% band and the LIL envelope. Right: share of \Paths{}
 paths outside the band at $n$, and outside at least once up to $n$. Dotted: 5\%.}\label{fig:lln}
 \end{figure}
@@ -114,7 +117,7 @@ paths outside the band at $n$, and outside at least once up to $n$. Dotted: 5\%.
 given $n$. But \ShareByThousand\% of paths have left it at least once by $n = 10^3$ and \ShareByMax\% by $n = 10^5$ (Monte Carlo
 standard error \ShareByMaxSe{} percentage points), and the curve is still rising. This is what the LIL predicts: its envelope
 is wider than the band for every $n \ge \LilFrom$ (where $\sqrt{2\log\log n} > 1.96$), so with probability one every path
-leaves the band infinitely often, and the orange curve tends to 100\%. The same holds for a $3\sigma$ band, but its envelope
+leaves the band infinitely often, and the black curve tends to 100\%. The same holds for a $3\sigma$ band, but its envelope
 crossing is at $n \approx \LilThreeSigma$, far beyond any simulation. The RMS error falls with slope $\RmsSlope$ on the
 log--log scale and equals $\RmsOverSe\,\mathrm{SE}(n)$ at $n = 10^5$: the $1/\sqrt n$ rate of the LLN holds exactly as
 predicted.
@@ -139,7 +142,7 @@ with and without continuity correction, and the Berry--Esseen bound.
 $-1/2$. Solid lines are exact distances, dashed lines the bounds of the same colour; the dotted line marks $D_n = 0.01$.
 
 \begin{figure}[h]
-\centering\includegraphics[width=0.86\linewidth]{../figures/fig2_clt_accuracy.pdf}
+\centering\includegraphics[width=\textwidth]{../figures/fig2_clt_accuracy.pdf}
 \caption{Exact Kolmogorov distance between $\mathrm{Bin}(n,p)$ and its normal approximation (solid) and the Berry--Esseen
 bound with $C = 0.4748$ (dashed). Dotted: $0.01$.}\label{fig:clt}
 \end{figure}
@@ -148,11 +151,12 @@ bound with $C = 0.4748$ (dashed). Dotted: $0.01$.}\label{fig:clt}
 \centering\footnotesize
 \caption{Exact Kolmogorov distance $D_n$ without and with continuity correction (cc), and the first of the 46 values of $n$
 from which $D_n$ stays below $0.01$.}\label{tab:clt}
-\begin{tabular}{lrrrrrrrrr}
+\scriptsize\setlength{\tabcolsep}{1.7pt}
+\begin{tabular}{@{}lrrrrrrrrr@{}}
 \toprule
- & \multicolumn{2}{c}{$n = 30$} & \multicolumn{2}{c}{$n = 100$} & \multicolumn{2}{c}{$n = 1000$} & \multicolumn{2}{c}{$n = 10^4$} & \\
+ & \multicolumn{2}{c}{$n = 30$} & \multicolumn{2}{c}{$n = 100$} & \multicolumn{2}{c}{$n = 1000$} & \multicolumn{2}{c}{$n = 10^4$} & $n$ for \\
 \cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}
-$p$ & $D_n$ & cc & $D_n$ & cc & $D_n$ & cc & $D_n$ & cc & $n$ for $D_n < 0.01$ \\
+$p$ & $D_n$ & cc & $D_n$ & cc & $D_n$ & cc & $D_n$ & cc & $D_n < 0.01$ \\
 \midrule
 \input{tab_clt_en.tex}
 \end{tabular}
@@ -186,12 +190,12 @@ bins of width $1/n$ centred on the values $k/n$. On the right the exact probabil
 $n$ so that they are on the density scale of the histogram.
 
 \textbf{How to read the figure.} Both panels show densities, so the total area of the bars is 1 in each. They share the vertical
-axis, and the orange curve is the same normal density in both.
+axis, and the black curve is the same normal density in both.
 
 \begin{figure}[h]
-\centering\includegraphics[width=0.9\linewidth]{../figures/fig3_histogram.pdf}
+\centering\includegraphics[width=\textwidth]{../figures/fig3_histogram.pdf}
 \caption{\HistM{} sample proportions of $n = \HistN$ tosses. Left: the bins of version 1. Right: one bin of width $1/n$ per
-possible value, with the exact binomial probabilities. Orange: normal density with mean $0.5$ and variance $0.25/n$.}\label{fig:hist}
+possible value, with the exact binomial probabilities. Black: normal density with mean $0.5$ and variance $0.25/n$.}\label{fig:hist}
 \end{figure}
 
 \textbf{Finding.} The values of $\hat p_{30}$ are $1/30 = \Spacing$ apart, but the Freedman--Diaconis rule gives \VoneBins{} bins
@@ -220,16 +224,17 @@ multiple of the spacing of the possible values.
 
 \section*{References}
 {\small
-Freedman, D., Diaconis, P. (1981). On the histogram as a density estimator: $L_2$ theory. \textit{Zeitschrift für
-Wahrscheinlichkeitstheorie und verwandte Gebiete}, 57(4), 453--476.\\
-Hartman, P., Wintner, A. (1941). On the law of the iterated logarithm. \textit{American Journal of Mathematics}, 63, 169--176.\\
-Khintchine, A. (1924). Über einen Satz der Wahrscheinlichkeitsrechnung. \textit{Fundamenta Mathematicae}, 6, 9--20.\\
-Shevtsova, I. G. (2011). On the absolute constants in the Berry--Esseen type inequalities for identically distributed summands.
-arXiv:1111.6554.\\
-NumPy documentation: \texttt{numpy.random.Generator}.
+\setlength{\parskip}{2pt}
+\hangindent=1.27cm\hangafter=1 Freedman, D., \& Diaconis, P. (1981). On the histogram as a density estimator: $L_2$ theory. \textit{Zeitschrift für
+Wahrscheinlichkeitstheorie und verwandte Gebiete}, 57(4), 453--476.\par
+\hangindent=1.27cm\hangafter=1 Hartman, P., \& Wintner, A. (1941). On the law of the iterated logarithm. \textit{American Journal of Mathematics}, 63(1), 169--176.\par
+\hangindent=1.27cm\hangafter=1 Khintchine, A. (1924). Über einen Satz der Wahrscheinlichkeitsrechnung. \textit{Fundamenta Mathematicae}, 6, 9--20.\par
+\hangindent=1.27cm\hangafter=1 Shevtsova, I. G. (2011). On the absolute constants in the Berry--Esseen type inequalities for identically distributed summands.
+arXiv:1111.6554.\par
+\hangindent=1.27cm\hangafter=1 NumPy documentation: \texttt{numpy.random.Generator}.\par
 
 \smallskip
-An AI coding assistant was used in writing the code and in preparing this note. All numbers are generated from
+All numbers are generated from
 \texttt{figures/*.csv} by \texttt{make\_paper.py}.
 }
 

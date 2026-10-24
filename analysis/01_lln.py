@@ -13,7 +13,7 @@ import numpy as np
 
 from common import P, SEED, save_table
 from coinsim import lil_envelope, lil_exceeds_band_from, running_means, standard_error
-from coinsim.style import BLUE, MUTED, ORANGE, L, save_figure, use_style
+from coinsim.style import BLUE, INK, MUTED, RED, L, fit_log_axis, may_touch, save_figure, use_style, value_axis
 
 N = 100_000
 PATHS = 2_000
@@ -63,35 +63,31 @@ use_style()
 
 def draw():
     import matplotlib.pyplot as plt
-    fig, axes = plt.subplots(1, 2, figsize=(7, 3.3), constrained_layout=True)
+    fig, axes = plt.subplots(1, 2, figsize=(4.75, 2.5), constrained_layout=True)
     ax = axes[0]
     for path in shown:
-        ax.plot(n, path, color=BLUE, lw=0.6, alpha=0.45)
-    ax.plot(n, P + band, color=ORANGE, lw=1.1, label=L("Pointwise 95% band", "Noktasal %95 bandı"))
-    ax.plot(n, P - band, color=ORANGE, lw=1.1)
+        ax.plot(n, path, color=BLUE, lw=0.5, alpha=0.45)
+    ax.plot(n, P + band, color=INK, lw=1.2, label=L("Pointwise 95% band", "Noktasal %95 bandı"))
+    ax.plot(n, P - band, color=INK, lw=1.2)
     env = lil_envelope(n, P)
-    ax.plot(n, P + env, color=MUTED, lw=1, ls="--", label=L("LIL envelope", "LIL zarfı"))
-    ax.plot(n, P - env, color=MUTED, lw=1, ls="--")
-    ax.set_xscale("log")
-    ax.set_ylim(0.2, 0.8)
-    ax.set_xlim(1, N)
+    ax.plot(n, P + env, color=MUTED, lw=1.0, ls=(0, (3, 2)), label=L("LIL envelope", "LIL zarfı"))
+    ax.plot(n, P - env, color=MUTED, lw=1.0, ls=(0, (3, 2)))
+    fit_log_axis(ax, "x", [1, N])
+    value_axis(ax, "y", 0, 1, 0.25)
     ax.set_xlabel("n")
-    ax.set_ylabel("$\\hat p_n$")
-    ax.set_title(L(f"{SHOWN} running means", f"{SHOWN} yürüyen ortalama"))
-    ax.legend(loc="upper right")
+    ax.set_title(L(f"(a) {SHOWN} running means $\\hat p_n$", f"(a) {SHOWN} yürüyen ortalama $\\hat p_n$"))
+    ax.legend(loc="upper right", fontsize=6.3, handlelength=2.2)
 
     ax = axes[1]
-    ax.plot(n, 100 * outside_now, color=BLUE, lw=1.4, label=L("Outside the band at n", "n anında band dışında"))
-    ax.plot(n, 100 * outside_ever, color=ORANGE, lw=1.6,
+    ax.plot(n, 100 * outside_now, color=BLUE, lw=1.2, label=L("Outside the band at n", "n anında band dışında"))
+    ax.plot(n, 100 * outside_ever, color=INK, lw=1.4,
             label=L("Outside at least once up to n", "n'ye kadar en az bir kez dışarıda"))
-    ax.axhline(5, color=MUTED, lw=0.8, ls=":")
-    ax.set_xscale("log")
-    ax.set_xlim(1, N)
-    ax.set_ylim(0, 100)
+    may_touch(ax.axhline(5, color=RED, lw=0.8, ls=(0, (1, 1.4))))
+    fit_log_axis(ax, "x", [1, N])
+    value_axis(ax, "y", 0, 100, 25)
     ax.set_xlabel("n")
-    ax.set_ylabel(L(f"Share of {PATHS:,} paths (%)", f"{PATHS:,} yolun payı (%)".replace(",", ".")))
-    ax.set_title(L("How often paths leave the band", "Yollar bandı ne sıklıkla terk ediyor"))
-    ax.legend(loc="center left")
+    ax.set_title(L(f"(b) Share of {PATHS:,} paths, %", f"(b) {PATHS:,} yolun payı, %".replace(",", ".")))
+    ax.legend(loc="upper left", fontsize=6.3, handlelength=2.2)
     return fig
 
 

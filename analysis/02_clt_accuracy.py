@@ -14,7 +14,7 @@ import numpy as np
 
 from common import save_table
 from coinsim import berry_esseen_bound, kolmogorov_distance
-from coinsim.style import AQUA, BLUE, ORANGE, L, num, save_figure, use_style
+from coinsim.style import BLUE, INK, MUTED, RED, L, end_label, fit_log_axis, may_touch, num, save_figure, use_style
 
 PS = (0.5, 0.1, 0.01)
 NS = np.unique(np.round(np.logspace(np.log10(5), 5, 46)).astype(int))
@@ -46,25 +46,28 @@ for s in selected:
     print(s)
 
 use_style()
-COLORS = dict(zip(PS, (BLUE, AQUA, ORANGE)))
+COLORS = dict(zip(PS, (INK, BLUE, MUTED)))
 
 
 def draw():
     import matplotlib.pyplot as plt
-    fig, ax = plt.subplots(figsize=(7, 3.4), constrained_layout=True)
+    fig, ax = plt.subplots(figsize=(4.75, 2.5), constrained_layout=True)
+    values = []
     for p in PS:
         sub = [r for r in rows if r["p"] == p]
-        ax.plot([r["n"] for r in sub], [r["kolmogorov"] for r in sub], color=COLORS[p], lw=1.6, marker="o", ms=2.5,
-                label=f"p = {num(p)}")
-        ax.plot([r["n"] for r in sub], [r["berry_esseen"] for r in sub], color=COLORS[p], lw=1, ls="--")
-    ax.axhline(0.01, color="#6f6f6f", lw=0.8, ls=":")
-    ax.set_xscale("log")
-    ax.set_yscale("log")
+        ns = [r["n"] for r in sub]
+        d = [r["kolmogorov"] for r in sub]
+        b = [r["berry_esseen"] for r in sub]
+        values += d + b
+        ax.plot(ns, d, color=COLORS[p], lw=1.4, marker="o", ms=2)
+        ax.plot(ns, b, color=COLORS[p], lw=0.9, ls=(0, (3, 2)))
+        end_label(ax, ns[-1], d[-1], f"p = {num(p)}", COLORS[p])
+    may_touch(ax.axhline(0.01, color=RED, lw=0.8, ls=(0, (1, 1.4))))
+    fit_log_axis(ax, "x", [r["n"] for r in rows])
+    fit_log_axis(ax, "y", values)
     ax.set_xlabel(L("Number of tosses n", "Atış sayısı n"))
-    ax.set_ylabel(L("Kolmogorov distance $D_n$", "Kolmogorov uzaklığı $D_n$"))
-    ax.set_title(L("Solid: exact distance. Dashed: Berry–Esseen bound.",
-                   "Düz: kesin uzaklık. Kesikli: Berry–Esseen sınırı."))
-    ax.legend(loc="lower left")
+    ax.set_title(L("Solid: exact distance $D_n$. Dashed: Berry–Esseen bound. Red: 0.01",
+                   "Düz: kesin uzaklık $D_n$. Kesikli: Berry–Esseen sınırı. Kırmızı: 0,01"))
     return fig
 
 

@@ -1,60 +1,59 @@
-\documentclass[a4paper,10pt]{article}
+\documentclass[11pt,a4paper]{article}
 
-% Encoding and typeface: XeLaTeX with Latin Modern Roman (fontspec default), Turkish via polyglossia
+% Typeface: XeLaTeX with Latin Modern Roman (fontspec default)
 \usepackage{fontspec}
 \usepackage{polyglossia}
 \setdefaultlanguage{turkish}
 
-% Layout (tight margins)
-\usepackage[a4paper,top=1.2cm,bottom=1.3cm,left=1.3cm,right=1.3cm]{geometry}
+% Page: the measures of the note template (A4, 11 pt, 4.5 cm side margins, header and page count)
+\usepackage[a4paper,left=4.5cm,right=4.5cm,top=4.5cm,bottom=4.1cm,headheight=14pt,headsep=0.55cm,
+  footskip=0.55cm]{geometry}
+\linespread{0.946}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textbf{PROJE NOTU} $|$ Coin flipping}
+\fancyhead[R]{\small\textbf{Derlenme tarihi:} \today}
+\fancyfoot[C]{\small\thepage\,/\,\pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
 
-% Typography
 \usepackage{microtype}
-\usepackage{setspace}
-\setstretch{0.92}
-
-% Paragraph settings
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{3pt}
-
-% Section styling
-\usepackage{titlesec}
-\titleformat{\section}{\bfseries\normalsize}{\thesection.}{0.4em}{}
-\titlespacing*{\section}{0pt}{6pt}{3pt}
-
-% Better lists
-\usepackage{enumitem}
-\setlist{noitemsep, topsep=2pt}
-
-% Mathematics, tables, figures
-\usepackage{amsmath}
-\usepackage{booktabs}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,array,tabularx}
 \usepackage{graphicx}
-\usepackage[font=small,labelfont=bf,labelsep=period,skip=3pt]{caption}
+\usepackage{enumitem}
+\setlist{noitemsep, topsep=3pt, leftmargin=*}
+\usepackage{xcolor}
+\definecolor{secblue}{HTML}{1F3A5F}
+\definecolor{boxback}{HTML}{EEF2F6}
+\definecolor{mark}{HTML}{9B2226}
+\definecolor{hl}{HTML}{FFF36B}
+\usepackage{titlesec}
+\titleformat{\section}{\color{secblue}\bfseries\normalsize}{\thesection.}{0.4em}{}
+\titlespacing*{\section}{0pt}{10pt}{4pt}
+\usepackage[font=small,labelfont=bf,labelsep=period,skip=4pt]{caption}
+\usepackage[bottom]{footmisc}
 \captionsetup[figure]{name=Şekil}
 \captionsetup[table]{name=Tablo}
-\setlength{\textfloatsep}{8pt}
-\setlength{\floatsep}{6pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\textfloatsep}{10pt}
+\emergencystretch=3em
 
 \input{numbers_tr.tex}
 
 \begin{document}
 
-% Header (top-right)
-\begin{flushright}
-\small \textbf{Derlenme tarihi:} \today
-\end{flushright}
 
-\vspace{-6pt}
-\hrule
-\vspace{24pt}
+\vspace*{14pt}
+\begin{tabular}{@{}p{2.35cm}@{}p{\dimexpr\textwidth-2.35cm}@{}}
+\textbf{BAŞLIK:} & \textbf{\large Yazı tura: yürüyen ortalama, \%95 bandı ve normal yaklaşım gerçekte neyi gösterir}\\[3pt]
+\textbf{KONU:} & \texttt{coin-flipping-exercise} deposunun 2.\ sürümündeki analizlerin amacı, yöntemi ve sonuçları\\[3pt]
+\textbf{YAZAR:} & Muhammed İkbal Yılmaz (myucanlar@gmail.com)
+\end{tabular}
 
-\textbf{BAŞLIK:} Yazı tura: yürüyen ortalama, \%95 bandı ve normal yaklaşım gerçekte neyi gösterir
-
-\textbf{KONU:} \texttt{coin-flipping-exercise} deposunun 2.\ sürümündeki analizlerin amacı, yöntemi ve sonuçları
-
-\textbf{HAZIRLAYAN:} Muhammed İkbal Yılmaz (myucanlar@gmail.com)
-
+\vspace{8pt}
 \vspace{12pt}
 
 \section{Amaç ve kapsam}
@@ -103,12 +102,12 @@ gibi okur. Bunlar farklı önermelerdir; bu analiz ikisini de ölçer.
 \textbf{Yöntem.} $10^5$ hilesiz para atışından oluşan \Paths{} bağımsız yol. Her $n$ için: $n$'de bandın dışında olan yolların
 payı; $n$'ye kadar en az bir kez dışarı çıkmış yolların payı; ve $\hat p_n - p$'nin karesel ortalamasının karekökü (KOK).
 
-\textbf{Şekil nasıl okunmalı.} Solda: yollardan 20'si, bant (turuncu) ve YLY zarfı (gri, kesikli). Sağda: mavi eğri belirli bir
-$n$'de dışarıda olanların payıdır ve bant doğruysa noktalı \%5 çizgisine yakın olmalıdır; turuncu eğri bir noktada banttan
+\textbf{Şekil nasıl okunmalı.} Solda: yollardan 20'si, bant (siyah) ve YLY zarfı (gri, kesikli). Sağda: mavi eğri belirli bir
+$n$'de dışarıda olanların payıdır ve bant doğruysa kırmızı noktalı \%5 çizgisine yakın olmalıdır; siyah eğri bir noktada banttan
 çıkmış olanların payıdır.
 
 \begin{figure}[h]
-\centering\includegraphics[width=0.84\linewidth]{../figures/tr/fig1_lln.pdf}
+\centering\includegraphics[width=\textwidth]{../figures/tr/fig1_lln.pdf}
 \caption{Solda: 20 hilesiz para yolunun yürüyen ortalamaları, noktasal \%95 bandı ve YLY zarfı. Sağda: \Paths{} yoldan $n$'de
 bandın dışında olanların ve $n$'ye kadar en az bir kez dışarı çıkmış olanların payı. Noktalı: \%5.}\label{fig:lln}
 \end{figure}
@@ -117,7 +116,7 @@ bandın dışında olanların ve $n$'ye kadar en az bir kez dışarı çıkmış
 \%\ShareNow'i bandın dışındadır. Ancak yolların \%\ShareByThousand'i $n = 10^3$'e, \%\ShareByMax'ü $n = 10^5$'e kadar en az bir
 kez banttan çıkmıştır (Monte Carlo standart hatası \ShareByMaxSe{} yüzde puan) ve eğri hâlâ yükselmektedir. YLY'nin öngördüğü
 budur: zarf her $n \ge \LilFrom$ için banttan geniştir ($\sqrt{2\log\log n} > 1{,}96$ olduğu yerde), dolayısıyla olasılık bir
-ile her yol banttan sonsuz kez çıkar ve turuncu eğri \%100'e yaklaşır. Aynısı $3\sigma$ bandı için de geçerlidir, ancak orada
+ile her yol banttan sonsuz kez çıkar ve siyah eğri \%100'e yaklaşır. Aynısı $3\sigma$ bandı için de geçerlidir, ancak orada
 zarfın bandı aştığı nokta yaklaşık $\LilThreeSigma$ atıştır, yani herhangi bir benzetimin çok ötesindedir. KOK hata log--log
 ölçekte $\RmsSlope$ eğimiyle azalır ve $n = 10^5$'te $\RmsOverSe\,\mathrm{SH}(n)$'ye eşittir: BSY'nin $1/\sqrt n$ hızı tam
 öngörüldüğü gibi gerçekleşir.
@@ -142,7 +141,7 @@ süreklilik düzeltmeli ve düzeltmesiz $D_n$ ile Berry--Esseen sınırı.
 çizgiler kesin uzaklıklar, kesikli çizgiler aynı renkteki sınırlardır; noktalı çizgi $D_n = 0{,}01$ düzeyini gösterir.
 
 \begin{figure}[h]
-\centering\includegraphics[width=0.86\linewidth]{../figures/tr/fig2_clt_accuracy.pdf}
+\centering\includegraphics[width=\textwidth]{../figures/tr/fig2_clt_accuracy.pdf}
 \caption{$\mathrm{Bin}(n,p)$ ile normal yaklaşımı arasındaki kesin Kolmogorov uzaklığı (düz) ve $C = 0{,}4748$ ile
 Berry--Esseen sınırı (kesikli). Noktalı: $0{,}01$.}\label{fig:clt}
 \end{figure}
@@ -151,11 +150,12 @@ Berry--Esseen sınırı (kesikli). Noktalı: $0{,}01$.}\label{fig:clt}
 \centering\footnotesize
 \caption{Süreklilik düzeltmesiz ve düzeltmeli (sd) kesin Kolmogorov uzaklığı $D_n$ ve 46 $n$ değeri arasında $D_n$'nin
 $0{,}01$'in altında kaldığı ilk değer.}\label{tab:clt}
-\begin{tabular}{lrrrrrrrrr}
+\scriptsize\setlength{\tabcolsep}{1.7pt}
+\begin{tabular}{@{}lrrrrrrrrr@{}}
 \toprule
- & \multicolumn{2}{c}{$n = 30$} & \multicolumn{2}{c}{$n = 100$} & \multicolumn{2}{c}{$n = 1000$} & \multicolumn{2}{c}{$n = 10^4$} & \\
+ & \multicolumn{2}{c}{$n = 30$} & \multicolumn{2}{c}{$n = 100$} & \multicolumn{2}{c}{$n = 1000$} & \multicolumn{2}{c}{$n = 10^4$} & $D_n < 0{,}01$ \\
 \cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}
-$p$ & $D_n$ & sd & $D_n$ & sd & $D_n$ & sd & $D_n$ & sd & $D_n < 0{,}01$ için $n$ \\
+$p$ & $D_n$ & sd & $D_n$ & sd & $D_n$ & sd & $D_n$ & sd & için $n$ \\
 \midrule
 \input{tab_clt_tr.tex}
 \end{tabular}
@@ -189,12 +189,12 @@ MLT'nin başarısızlığı gibi okunabilir. Oysa $\hat p_n$ kesiklidir: yalnız
 $P(\hat p_n = k/n)$ eklenmiştir; histogramın yoğunluk ölçeğine taşımak için $n$ ile çarpılmışlardır.
 
 \textbf{Şekil nasıl okunmalı.} İki panel de yoğunluk gösterir; her birinde çubukların toplam alanı 1'dir. Dikey eksen ortaktır
-ve turuncu eğri iki panelde de aynı normal yoğunluktur.
+ve siyah eğri iki panelde de aynı normal yoğunluktur.
 
 \begin{figure}[h]
-\centering\includegraphics[width=0.84\linewidth]{../figures/tr/fig3_histogram.pdf}
+\centering\includegraphics[width=\textwidth]{../figures/tr/fig3_histogram.pdf}
 \caption{$n = \HistN$ atışlık \HistM{} örnek oranı. Solda: 1.\ sürümün sınıfları. Sağda: her olası değer için $1/n$ genişliğinde
-bir sınıf ve kesin binom olasılıkları. Turuncu: ortalaması $0{,}5$, varyansı $0{,}25/n$ olan normal yoğunluk.}\label{fig:hist}
+bir sınıf ve kesin binom olasılıkları. Siyah: ortalaması $0{,}5$, varyansı $0{,}25/n$ olan normal yoğunluk.}\label{fig:hist}
 \end{figure}
 
 \textbf{Bulgu.} $\hat p_{30}$'un değerleri arasında $1/30 = \Spacing$ aralık vardır, ancak Freedman--Diaconis kuralı
@@ -225,16 +225,17 @@ değerler arasındaki aralığın katı olmalıdır.
 
 \section*{Kaynaklar}
 {\small
-Freedman, D., Diaconis, P. (1981). On the histogram as a density estimator: $L_2$ theory. \textit{Zeitschrift für
-Wahrscheinlichkeitstheorie und verwandte Gebiete}, 57(4), 453--476.\\
-Hartman, P., Wintner, A. (1941). On the law of the iterated logarithm. \textit{American Journal of Mathematics}, 63, 169--176.\\
-Khintchine, A. (1924). Über einen Satz der Wahrscheinlichkeitsrechnung. \textit{Fundamenta Mathematicae}, 6, 9--20.\\
-Shevtsova, I. G. (2011). On the absolute constants in the Berry--Esseen type inequalities for identically distributed summands.
-arXiv:1111.6554.\\
-NumPy belgeleri: \texttt{numpy.random.Generator}.
+\setlength{\parskip}{2pt}
+\hangindent=1.27cm\hangafter=1 Freedman, D., \& Diaconis, P. (1981). On the histogram as a density estimator: $L_2$ theory. \textit{Zeitschrift für
+Wahrscheinlichkeitstheorie und verwandte Gebiete}, 57(4), 453--476.\par
+\hangindent=1.27cm\hangafter=1 Hartman, P., \& Wintner, A. (1941). On the law of the iterated logarithm. \textit{American Journal of Mathematics}, 63(1), 169--176.\par
+\hangindent=1.27cm\hangafter=1 Khintchine, A. (1924). Über einen Satz der Wahrscheinlichkeitsrechnung. \textit{Fundamenta Mathematicae}, 6, 9--20.\par
+\hangindent=1.27cm\hangafter=1 Shevtsova, I. G. (2011). On the absolute constants in the Berry--Esseen type inequalities for identically distributed summands.
+arXiv:1111.6554.\par
+\hangindent=1.27cm\hangafter=1 NumPy belgeleri: \texttt{numpy.random.Generator}.\par
 
 \smallskip
-Kodun yazımında ve bu notun hazırlanmasında bir yapay zekâ kodlama asistanından yararlanılmıştır. Tüm sayılar
+Tüm sayılar
 \texttt{figures/*.csv} dosyalarından \texttt{make\_paper.py} ile üretilmiştir.
 }
 

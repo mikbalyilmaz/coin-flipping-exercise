@@ -16,7 +16,7 @@ import numpy as np
 
 from common import P, SEED, save_table
 from coinsim import binomial_pmf, freedman_diaconis_bins_v1, lattice_bins, sample_proportions
-from coinsim.style import BLUE, MUTED, ORANGE, L, decimal_axis, num, save_figure, use_style
+from coinsim.style import BLUE, INK, L, auto_axis, save_figure, use_style, value_axis
 
 N = 30
 M = 20_000
@@ -46,23 +46,22 @@ normal = np.exp(-0.5 * ((x - P) / sigma) ** 2) / (math.sqrt(2 * math.pi) * sigma
 
 def draw():
     import matplotlib.pyplot as plt
-    fig, axes = plt.subplots(1, 2, figsize=(7, 3.2), sharey=True, constrained_layout=True)
-    panels = [(axes[0], v1_heights, v1_edges, L(f"Version 1: {v1_bins} Freedman–Diaconis bins",
-                                               f"Sürüm 1: {v1_bins} Freedman–Diaconis aralığı")),
-              (axes[1], lat_heights, lat_edges, L("Bins of width 1/n on the possible values",
-                                                 "Olası değerlere ortalanmış 1/n genişliğinde aralıklar"))]
+    fig, axes = plt.subplots(1, 2, figsize=(4.75, 2.4), constrained_layout=True)
+    panels = [(axes[0], v1_heights, v1_edges, L(f"(a) Version 1: {v1_bins} bins (Freedman–Diaconis)",
+                                               f"(a) Sürüm 1: {v1_bins} aralık (Freedman–Diaconis)")),
+              (axes[1], lat_heights, lat_edges, L("(b) Bins of width 1/n on the possible values",
+                                                 "(b) Olası değerlerde 1/n genişliğinde aralıklar"))]
+    top = max(float(np.max(v1_heights)), float(np.max(lat_heights)), float(np.max(normal)))
     for ax, heights, edges, title in panels:
-        ax.bar(edges[:-1], heights, width=np.diff(edges), align="edge", color=BLUE, alpha=0.75, lw=0)
-        ax.plot(x, normal, color=ORANGE, lw=1.6, label=L("Normal approximation", "Normal yaklaşım"))
-        ax.set_title(title, fontsize=9)
+        ax.bar(edges[:-1], heights, width=np.diff(edges), align="edge", color=BLUE, lw=0)
+        ax.plot(x, normal, color=INK, lw=1.3, label=L("Normal approximation", "Normal yaklaşım"))
+        ax.set_title(title, fontsize=7)
         ax.set_xlabel("$\\hat p$")
-        ax.set_xlim(0.1, 0.9)
-        decimal_axis(ax, "x")
+        value_axis(ax, "x", 0.1, 0.9, 0.2)
+        auto_axis(ax, "y", [0.0, top])
     k = np.arange(N + 1) / N
-    axes[1].plot(k, pmf * N, "o", ms=2.8, color=MUTED, label=L("Exact binomial", "Kesin binom"))
-    axes[0].set_ylabel(L("Density", "Yoğunluk"))
-    decimal_axis(axes[0], "y")
-    axes[1].legend(loc="upper right", fontsize=8)
+    axes[1].plot(k, pmf * N, "o", ms=2.6, mfc="white", mec=INK, mew=0.8, label=L("Exact binomial", "Kesin binom"))
+    axes[1].legend(loc="upper right", fontsize=6.3)
     return fig
 
 
