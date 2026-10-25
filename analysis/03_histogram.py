@@ -59,6 +59,7 @@ def draw():
         ax.set_xlabel("$\\hat p$")
         value_axis(ax, "x", 0.1, 0.9, 0.2)
         auto_axis(ax, "y", [0.0, top])
+    axes[0].set_ylabel(L("Density", "Yoğunluk"))
     k = np.arange(N + 1) / N
     axes[1].plot(k, pmf * N, "o", ms=2.6, mfc="white", mec=INK, mew=0.8, label=L("Exact binomial", "Kesin binom"))
     axes[1].legend(loc="upper right", fontsize=6.3)

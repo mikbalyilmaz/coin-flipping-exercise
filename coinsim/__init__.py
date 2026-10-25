@@ -4,4 +4,4 @@ from .simulation import freedman_diaconis_bins_v1, lattice_bins, running_means, 
 from .theory import (BERRY_ESSEEN_C, berry_esseen_bound, binomial_pmf, kolmogorov_distance, lil_envelope,
                      lil_exceeds_band_from, normal_cdf, standard_error)
 
-__version__ = "2.1.0"
+__version__ = "2.1.1"

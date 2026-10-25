@@ -1,5 +1,12 @@
 # Changes
 
+## Version 2.1.1
+
+No result changed: every table and every number in the notes is the same as in version 2.1.0.
+
+- Figure 3: the vertical axis is labelled "Density" ("Yoğunluk" in the Turkish figure); the heights are densities, so
+  the bars of each panel have total area 1.
+
 ## Version 2.1.0
 
 No result changed: every table and every number in the notes is the same as in version 2.0.0.
