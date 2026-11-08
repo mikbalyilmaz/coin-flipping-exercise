@@ -63,14 +63,22 @@ berry_esseen_bound(30, 0.5)
   $p \pm 1.96\sqrt{p(1-p)/n}$, as it should be. But 53.1% of the paths have left the band at least once by $n = 10^3$
   and 74.4% by $n = 10^5$. By the law of the iterated logarithm every path leaves it infinitely often: from $n = 922$ on,
   the LIL envelope is wider than the band.
+
+![Figure 1. Running means and the pointwise 95% band](figures/fig1_lln.png)
+
 - **The accuracy of the normal approximation depends on p.** The exact Kolmogorov distance falls like $n^{-1/2}$ for
   every $p$, close to the Berry–Esseen bound. It stays below 0.01 from $n = 1{,}904$ for $p = 0.5$, from $n = 7{,}129$
   for $p = 0.1$ and from $n = 80{,}246$ for $p = 0.01$. At $n = 30$ it is 0.072 for a fair coin.
+
+![Figure 2. Distance between the binomial distribution and its normal approximation](figures/fig2_clt_accuracy.png)
+
 - **The continuity correction matters.** For $p = 0.5$ it reduces the distance at $n = 30$ from 0.072 to
   $9.2\times10^{-4}$. For skewed cases it helps much less, because the remaining error comes from skewness.
 - **The spiky histograms were caused by the bins.** A sample proportion of 30 tosses takes values $1/30$ apart; the
   Freedman–Diaconis rule of version 1 used 72 bins of width 0.0097, so 51 bins were empty and the tallest bar was 3.5
   times the normal peak. Bins of width $1/n$ match the exact binomial probabilities.
+
+![Figure 3. 20,000 sample proportions of n = 30 tosses, two choices of bins](figures/fig3_histogram.png)
 
 All numbers are in `figures/*.csv` and in the project note.
 

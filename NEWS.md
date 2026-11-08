@@ -1,5 +1,13 @@
 # Changes
 
+## Version 2.1.2
+
+No result changed: every table and every number in the notes is the same as in version 2.1.1.
+
+- README: the three figures are shown under the results they belong to.
+- Figure 1b: the red dotted line is labelled "5%" ("%5" in the Turkish figure), as the red reference line of
+  Figure 2 is labelled in its heading.
+
 ## Version 2.1.1
 
 No result changed: every table and every number in the notes is the same as in version 2.1.0.

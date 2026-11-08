@@ -83,6 +83,8 @@ def draw():
     ax.plot(n, 100 * outside_ever, color=INK, lw=1.4,
             label=L("Outside at least once up to n", "n'ye kadar en az bir kez dışarıda"))
     may_touch(ax.axhline(5, color=RED, lw=0.8, ls=(0, (1, 1.4))))
+    may_touch(ax.annotate(L("5%", "%5"), xy=(N, 5), xytext=(-1, 3), textcoords="offset points", ha="right",
+                          va="bottom", color=RED, fontweight="bold", fontsize=7.5))
     fit_log_axis(ax, "x", [1, N])
     value_axis(ax, "y", 0, 100, 25)
     ax.set_xlabel("n")
