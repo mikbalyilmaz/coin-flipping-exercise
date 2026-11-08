@@ -90,6 +90,8 @@ def draw():
     ax.set_xlabel("n")
     ax.set_title(L(f"(b) Share of {PATHS:,} paths, %", f"(b) {PATHS:,} yolun payı, %".replace(",", ".")))
     ax.legend(loc="upper left", fontsize=6.3, handlelength=2.2)
+    for a in fig.axes:   # the vertical axis stands 4 pt away from the data, which start on the first x value
+        a.spines["left"].set_position(("outward", 4))
     return fig
 
 

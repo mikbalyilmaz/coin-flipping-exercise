@@ -1,5 +1,13 @@
 # Changes
 
+## Version 2.1.3
+
+No result changed: every table and every number in the note is the same as in version 2.1.2.
+
+| # | Version 2.1.2 | Version 2.1.3 |
+|---|---|---|
+| 1 | In Figure 1, lines and markers that start at the first x tick sat on the vertical axis | The vertical axis is moved 4 pt away from the data (axis limits stay at labelled ticks) |
+
 ## Version 2.1.2
 
 No result changed: every table and every number in the notes is the same as in version 2.1.1.
