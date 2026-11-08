@@ -16,7 +16,7 @@ import numpy as np
 
 from common import P, SEED, save_table
 from coinsim import binomial_pmf, freedman_diaconis_bins_v1, lattice_bins, sample_proportions
-from coinsim.style import BLUE, INK, L, auto_axis, save_figure, use_style, value_axis
+from coinsim.style import BLUE, INK, auto_axis, save_figure, use_style, value_axis
 
 N = 30
 M = 20_000
@@ -47,25 +47,22 @@ normal = np.exp(-0.5 * ((x - P) / sigma) ** 2) / (math.sqrt(2 * math.pi) * sigma
 def draw():
     import matplotlib.pyplot as plt
     fig, axes = plt.subplots(1, 2, figsize=(4.75, 2.4), constrained_layout=True)
-    panels = [(axes[0], v1_heights, v1_edges, L(f"(a) Version 1: {v1_bins} bins (Freedman–Diaconis)",
-                                               f"(a) Sürüm 1: {v1_bins} aralık (Freedman–Diaconis)")),
-              (axes[1], lat_heights, lat_edges, L("(b) Bins of width 1/n on the possible values",
-                                                 "(b) Olası değerlerde 1/n genişliğinde aralıklar"))]
+    panels = [(axes[0], v1_heights, v1_edges, f"(a) Version 1: {v1_bins} bins (Freedman–Diaconis)"),
+              (axes[1], lat_heights, lat_edges, "(b) Bins of width 1/n on the possible values")]
     top = max(float(np.max(v1_heights)), float(np.max(lat_heights)), float(np.max(normal)))
     for ax, heights, edges, title in panels:
         ax.bar(edges[:-1], heights, width=np.diff(edges), align="edge", color=BLUE, lw=0)
-        ax.plot(x, normal, color=INK, lw=1.3, label=L("Normal approximation", "Normal yaklaşım"))
+        ax.plot(x, normal, color=INK, lw=1.3, label="Normal approximation")
         ax.set_title(title, fontsize=7)
         ax.set_xlabel("$\\hat p$")
         value_axis(ax, "x", 0.1, 0.9, 0.2)
         auto_axis(ax, "y", [0.0, top])
-    axes[0].set_ylabel(L("Density", "Yoğunluk"))
+    axes[0].set_ylabel("Density")
     k = np.arange(N + 1) / N
-    axes[1].plot(k, pmf * N, "o", ms=2.6, mfc="white", mec=INK, mew=0.8, label=L("Exact binomial", "Kesin binom"))
+    axes[1].plot(k, pmf * N, "o", ms=2.6, mfc="white", mec=INK, mew=0.8, label="Exact binomial")
     axes[1].legend(loc="upper right", fontsize=6.3)
     return fig
 
 
 save_figure("fig3_histogram", draw,
-            heading=lambda: L(f"Figure 3. {M:,} sample proportions of n = {N} tosses, two choices of bins",
-                              f"Şekil 3. n = {N} atışlık {M:,} örneklem oranı, iki farklı aralık seçimi".replace(",", ".")))
+            heading=lambda: f"Figure 3. {M:,} sample proportions of n = {N} tosses, two choices of bins")

@@ -1,8 +1,8 @@
 """Writes every number and table of the project notes from ../figures/*.csv, so that the text cannot drift
 away from the analysis. Run from inside paper/:  python make_paper.py
 
-Output, once in English (suffix _en, for coin_note.tex) and once in Turkish (suffix _tr, for coin_notu.tex):
-numbers_xx.tex (one macro per quoted number) and tab_clt_xx.tex (table body ending with its bottom rule,
+Output (suffix _en, for coin_note.tex):
+numbers_en.tex (one macro per quoted number) and tab_clt_en.tex (table body ending with its bottom rule,
 because a rule cannot follow \\input directly inside a tabular).
 """
 
@@ -23,7 +23,7 @@ lln = read("table2_lln_summary")[0]
 clt = {r["p"]: r for r in read("table4_clt_summary")}
 hist = read("table5_histogram")[0]
 
-SEP = {"en": {"big": "{,}", "dec": "."}, "tr": {"big": ".", "dec": "{,}"}}
+SEP = {"en": {"big": "{,}", "dec": "."}}
 
 
 def build(lang):
@@ -101,6 +101,6 @@ def build(lang):
     (OUT / f"tab_clt_{lang}.tex").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
-for lang in ("en", "tr"):
+for lang in ("en",):
     build(lang)
-print("Wrote numbers_*.tex and tab_clt_*.tex (en, tr).")
+print("Wrote numbers_*.tex and tab_clt_*.tex (en).")

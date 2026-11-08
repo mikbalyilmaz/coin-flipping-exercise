@@ -13,7 +13,7 @@ import numpy as np
 
 from common import P, SEED, save_table
 from coinsim import lil_envelope, lil_exceeds_band_from, running_means, standard_error
-from coinsim.style import BLUE, INK, MUTED, RED, L, fit_log_axis, may_touch, save_figure, use_style, value_axis
+from coinsim.style import BLUE, INK, MUTED, RED, fit_log_axis, may_touch, save_figure, use_style, value_axis
 
 N = 100_000
 PATHS = 2_000
@@ -67,28 +67,28 @@ def draw():
     ax = axes[0]
     for path in shown:
         ax.plot(n, path, color=BLUE, lw=0.5, alpha=0.45)
-    ax.plot(n, P + band, color=INK, lw=1.2, label=L("Pointwise 95% band", "Noktasal %95 bandı"))
+    ax.plot(n, P + band, color=INK, lw=1.2, label="Pointwise 95% band")
     ax.plot(n, P - band, color=INK, lw=1.2)
     env = lil_envelope(n, P)
-    ax.plot(n, P + env, color=MUTED, lw=1.0, ls=(0, (3, 2)), label=L("LIL envelope", "LIL zarfı"))
+    ax.plot(n, P + env, color=MUTED, lw=1.0, ls=(0, (3, 2)), label="LIL envelope")
     ax.plot(n, P - env, color=MUTED, lw=1.0, ls=(0, (3, 2)))
     fit_log_axis(ax, "x", [1, N])
     value_axis(ax, "y", 0, 1, 0.25)
     ax.set_xlabel("n")
-    ax.set_title(L(f"(a) {SHOWN} running means $\\hat p_n$", f"(a) {SHOWN} yürüyen ortalama $\\hat p_n$"))
+    ax.set_title(f"(a) {SHOWN} running means $\\hat p_n$")
     ax.legend(loc="upper right", fontsize=6.3, handlelength=2.2)
 
     ax = axes[1]
-    ax.plot(n, 100 * outside_now, color=BLUE, lw=1.2, label=L("Outside the band at n", "n anında band dışında"))
+    ax.plot(n, 100 * outside_now, color=BLUE, lw=1.2, label="Outside the band at n")
     ax.plot(n, 100 * outside_ever, color=INK, lw=1.4,
-            label=L("Outside at least once up to n", "n'ye kadar en az bir kez dışarıda"))
+            label="Outside at least once up to n")
     may_touch(ax.axhline(5, color=RED, lw=0.8, ls=(0, (1, 1.4))))
-    may_touch(ax.annotate(L("5%", "%5"), xy=(N, 5), xytext=(-1, 3), textcoords="offset points", ha="right",
+    may_touch(ax.annotate("5%", xy=(N, 5), xytext=(-1, 3), textcoords="offset points", ha="right",
                           va="bottom", color=RED, fontweight="bold", fontsize=7.5))
     fit_log_axis(ax, "x", [1, N])
     value_axis(ax, "y", 0, 100, 25)
     ax.set_xlabel("n")
-    ax.set_title(L(f"(b) Share of {PATHS:,} paths, %", f"(b) {PATHS:,} yolun payı, %".replace(",", ".")))
+    ax.set_title(f"(b) Share of {PATHS:,} paths, %")
     ax.legend(loc="upper left", fontsize=6.3, handlelength=2.2)
     for a in fig.axes:   # the vertical axis stands 4 pt away from the data, which start on the first x value
         a.spines["left"].set_position(("outward", 4))
@@ -96,5 +96,4 @@ def draw():
 
 
 save_figure("fig1_lln", draw,
-            heading=lambda: L("Figure 1. Running means and the pointwise 95% band",
-                              "Şekil 1. Yürüyen ortalamalar ve noktasal %95 bandı"))
+            heading=lambda: "Figure 1. Running means and the pointwise 95% band")

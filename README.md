@@ -9,7 +9,7 @@ $$\hat p_n = \frac{1}{n}\sum_{i=1}^{n} X_i, \qquad X_i \sim \text{Bernoulli}(p) 
 Version 1 illustrated the law of large numbers and the central limit theorem with simulated plots that were judged by
 eye. Version 2 measures what those plots show: how often paths leave the pointwise 95% band, how far the binomial
 distribution is from its normal approximation (computed exactly and compared with the Berry–Esseen bound), and why the
-histograms of version 1 looked spiky. A short project note (English and Turkish) explains why each analysis was done
+histograms of version 1 looked spiky. A short project note explains why each analysis was done
 and what it shows.
 
 ## Contents
@@ -18,14 +18,14 @@ and what it shows.
 |---|---|
 | `coinsim/theory.py` | Binomial probabilities, exact Kolmogorov distance to the normal approximation, Berry–Esseen bound, standard error, LIL envelope |
 | `coinsim/simulation.py` | Running means of many paths, repeated experiments, histogram bins (version 1 rule and bins matched to the possible values) |
-| `coinsim/style.py` | Shared figure style (Latin Modern Roman, colours, English and Turkish versions of each figure) |
+| `coinsim/style.py` | Shared figure style (Latin Modern Roman, colours) |
 | `tests/run_tests.py` | Unit tests against exact rational arithmetic, plain loops, brute-force search and published bounds |
 | `analysis/01_lln.py` | Running means and the pointwise 95% band over 2,000 paths (Figure 1) |
 | `analysis/02_clt_accuracy.py` | Exact distance between Binomial(n, p) and the normal approximation for p = 0.5, 0.1, 0.01 (Figure 2) |
 | `analysis/03_histogram.py` | Histograms of a sample proportion with two choices of bins (Figure 3) |
 | `analysis/run_all.py` | Runs the three analyses in order |
-| `figures/` | Figures as PNG (300 dpi) and PDF, every reported table as CSV; `figures/tr/` holds the Turkish figures |
-| `paper/coin_note.pdf`, `paper/coin_notu.pdf` | Project note in English and in Turkish; `make_paper.py` writes all their numbers from `figures/*.csv` |
+| `figures/` | Figures as PNG (300 dpi) and PDF, every reported table as CSV |
+| `paper/coin_note.pdf` | Project note in English; `make_paper.py` writes all their numbers from `figures/*.csv` |
 | `legacy/` | Version 1, unchanged: the notebook and the R script |
 | `fonts/` | Latin Modern Roman (GUST Font License) |
 
@@ -39,7 +39,6 @@ python run_all.py                    # about 15 seconds
 cd ../paper
 python make_paper.py
 xelatex coin_note.tex && xelatex coin_note.tex       # English; needs XeLaTeX
-xelatex coin_notu.tex && xelatex coin_notu.tex       # Turkish
 ```
 
 Seeds are fixed, so every number is the same at every run.

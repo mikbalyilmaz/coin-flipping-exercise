@@ -14,7 +14,7 @@ import numpy as np
 
 from common import save_table
 from coinsim import berry_esseen_bound, kolmogorov_distance
-from coinsim.style import BLUE, INK, MUTED, RED, L, end_label, fit_log_axis, may_touch, num, save_figure, use_style
+from coinsim.style import BLUE, INK, MUTED, RED, end_label, fit_log_axis, may_touch, num, save_figure, use_style
 
 PS = (0.5, 0.1, 0.01)
 NS = np.unique(np.round(np.logspace(np.log10(5), 5, 46)).astype(int))
@@ -65,12 +65,10 @@ def draw():
     may_touch(ax.axhline(0.01, color=RED, lw=0.8, ls=(0, (1, 1.4))))
     fit_log_axis(ax, "x", [r["n"] for r in rows])
     fit_log_axis(ax, "y", values)
-    ax.set_xlabel(L("Number of tosses n", "Atış sayısı n"))
-    ax.set_title(L("Solid: exact distance $D_n$. Dashed: Berry–Esseen bound. Red: 0.01",
-                   "Düz: kesin uzaklık $D_n$. Kesikli: Berry–Esseen sınırı. Kırmızı: 0,01"))
+    ax.set_xlabel("Number of tosses n")
+    ax.set_title("Solid: exact distance $D_n$. Dashed: Berry–Esseen bound. Red: 0.01")
     return fig
 
 
 save_figure("fig2_clt_accuracy", draw,
-            heading=lambda: L("Figure 2. Distance between the binomial distribution and its normal approximation",
-                              "Şekil 2. Binom dağılımı ile normal yaklaşım arasındaki uzaklık"))
+            heading=lambda: "Figure 2. Distance between the binomial distribution and its normal approximation")
